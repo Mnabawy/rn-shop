@@ -1,33 +1,59 @@
 import React from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import * as cartActions from "../../store/actions/cart";
+import Colors from "../../constants/Colors";
 
 const ProductDetailScreen = props => {
   const productId = props.navigation.getParam("productId");
-  const products = useSelector(state => state.products.availableProducts);
-  const product = products.find(item => item.id === productId);
+  const selectedProduct = useSelector(
+    state => state.products.availableProducts
+  ).find(item => item.id === productId);
+
+  const dispatch = useDispatch();
 
   return (
     <ScrollView>
-      <View style={styles.imageContianer}>
-        <Image source={{ uri: product.imageUrl }} style={styles.image} />
+      <Image source={{ uri: selectedProduct.imageUrl }} style={styles.image} />
+      <View style={styles.action}>
+        <Button
+          color={Colors.primary}
+          title="Add to Card"
+          onPress={() => {
+            dispatch(cartActions.addToCard(selectedProduct));
+          }}
+        />
       </View>
-      <View>
-        <Text></Text>
-        <Text></Text>
-      </View>
+      <Text style={styles.price}>${selectedProduct.price}</Text>
+      <Text style={styles.desc}>{selectedProduct.description}</Text>
     </ScrollView>
   );
 };
 
+ProductDetailScreen.navigationOptions = navData => ({
+  headerTitle: navData.navigation.getParam("productTitle"),
+});
+
 const styles = StyleSheet.create({
-  imageContianer: {
+  image: {
     width: "100%",
     height: 300,
   },
-  image: {
-    width: "100%",
-    height: "100%",
+  action: {
+    marginVertical: 10,
+    alignItems: "center",
+  },
+  price: {
+    fontSize: 20,
+    color: "#888",
+    textAlign: "center",
+    marginVertical: 20,
+  },
+  desc: {
+    fontSize: 14,
+    textAlign: "center",
+    marginHorizontal: 20,
   },
 });
 

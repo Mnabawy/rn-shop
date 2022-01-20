@@ -21,41 +21,43 @@ const ProductItem = ({ item, navigation }) => {
 
   return (
     <View style={styles.product}>
-      <CustomTouchable
-        onPress={() =>
-          navigation.navigate("ProductDetails", {
-            productId: item.id,
-            productTitle: item.title,
-          })
-        }
-        useForeground
-      >
-        <View>
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: item.imageUrl }} style={styles.image} />
-          </View>
-
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.price}>${item.price}</Text>
-          </View>
-        </View>
-      </CustomTouchable>
-      <View style={styles.btnContainer}>
-        <Button
-          color={Platform.OS === "android" ? Colors.primary : ""}
-          title="View Details"
+      <View style={styles.touchable}>
+        <CustomTouchable
           onPress={() =>
             navigation.navigate("ProductDetails", {
               productId: item.id,
               productTitle: item.title,
             })
           }
-        />
-        <Button
-          color={Platform.OS === "android" ? Colors.primary : ""}
-          title="To Cart"
-        />
+          useForeground
+        >
+          <View>
+            <View style={styles.imageContainer}>
+              <Image source={{ uri: item.imageUrl }} style={styles.image} />
+            </View>
+
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.price}>${item.price}</Text>
+            </View>
+          </View>
+          <View style={styles.btnContainer}>
+            <Button
+              color={Platform.OS === "android" ? Colors.primary : ""}
+              title="View Details"
+              onPress={() =>
+                navigation.navigate("ProductDetails", {
+                  productId: item.id,
+                  productTitle: item.title,
+                })
+              }
+            />
+            <Button
+              color={Platform.OS === "android" ? Colors.primary : ""}
+              title="To Cart"
+            />
+          </View>
+        </CustomTouchable>
       </View>
     </View>
   );
@@ -90,14 +92,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
+    fontFamily: "open-sans-bold",
     fontSize: 18,
     marginVertical: 4,
   },
   price: {
+    fontFamily: "open-sans",
     fontSize: 14,
     color: "#888",
   },
   btnContainer: {
+    fontFamily: "open-sans-bold",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
