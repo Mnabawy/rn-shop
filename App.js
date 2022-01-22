@@ -2,13 +2,12 @@ import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
-import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 
 import productsReducer from "./store/reducers/products";
 import cartReducer from "./store/reducers/cart";
 import ordersReducer from "./store/reducers/orders";
-
 import ShopNavigator from "./navigation/Navigator";
 
 const rootReducer = combineReducers({
@@ -36,6 +35,7 @@ export default function App() {
         onFinish={() => {
           setFontLoaded(true);
         }}
+        onError={console.warn}
       />
     );
   }

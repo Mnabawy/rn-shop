@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import * as cartActions from "../../store/actions/cart";
@@ -7,7 +7,7 @@ import Colors from "../../constants/Colors";
 
 const ProductDetailScreen = props => {
   const productId = props.navigation.getParam("productId");
-  const selectedProduct = useSelector(
+  const  selectedProduct = useSelector(
     state => state.products.availableProducts
   ).find(item => item.id === productId);
 

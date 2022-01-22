@@ -9,7 +9,9 @@ import {
   View,
   TouchableNativeFeedback,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
+import * as cartActions from '../../store/actions/cart'
 import Colors from "../../constants/Colors";
 
 const ProductItem = ({ item, navigation }) => {
@@ -18,6 +20,9 @@ const ProductItem = ({ item, navigation }) => {
   if (Platform.OS === "android" && Platform.Version >= 21) {
     CustomTouchable = TouchableNativeFeedback;
   }
+
+
+  const dispatch = useDispatch()
 
   return (
     <View style={styles.product}>
@@ -32,30 +37,33 @@ const ProductItem = ({ item, navigation }) => {
           useForeground
         >
           <View>
-            <View style={styles.imageContainer}>
-              <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            </View>
+            <View>
+              <View style={styles.imageContainer}>
+                <Image source={{ uri: item.imageUrl }} style={styles.image} />
+              </View>
 
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.price}>${item.price}</Text>
+              <View style={styles.textContainer}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.price}>${item.price}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.btnContainer}>
-            <Button
-              color={Platform.OS === "android" ? Colors.primary : ""}
-              title="View Details"
-              onPress={() =>
-                navigation.navigate("ProductDetails", {
-                  productId: item.id,
-                  productTitle: item.title,
-                })
-              }
-            />
-            <Button
-              color={Platform.OS === "android" ? Colors.primary : ""}
-              title="To Cart"
-            />
+            <View style={styles.btnContainer}>
+              <Button
+                color={Platform.OS === "android" ? Colors.primary : ""}
+                title="View Details"
+                onPress={() =>
+                  navigation.navigate("ProductDetails", {
+                    productId: item.id,
+                    productTitle: item.title,
+                  })
+                }
+              />
+              <Button
+                color={Platform.OS === "android" ? Colors.primary : ""}
+                title="To Cart"
+                onPress={()=> dispatch(cartActions.addToCard(item))}
+              />
+            </View>
           </View>
         </CustomTouchable>
       </View>
