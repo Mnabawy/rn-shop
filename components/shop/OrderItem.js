@@ -20,7 +20,7 @@ const OrderItem = ({ amount, date, items }) => {
         }}
       />
       {showDetails && (
-        <View style={styles.detailsItemx}>
+        <View style={styles.detailsItem}>
           {items.map(cartItem => (
             <CartItem
               key={cartItem.productId}
