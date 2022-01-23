@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import * as cartActions from "../../store/actions/cart";
 import Colors from "../../constants/Colors";
 
-const ProductItem = ({ item, navigation }) => {
+const ProductItem = ({ item, navigation, onSelect, children }) => {
   let CustomTouchable = TouchableOpacity;
 
   if (Platform.OS === "android" && Platform.Version >= 21) {
@@ -26,7 +26,7 @@ const ProductItem = ({ item, navigation }) => {
   return (
     <View style={styles.product}>
       <View style={styles.touchable}>
-        <CustomTouchable onPress={props.onSelect} useForeground>
+        <CustomTouchable onPress={onSelect} useForeground>
           <View>
             <View>
               <View style={styles.imageContainer}>
@@ -38,7 +38,7 @@ const ProductItem = ({ item, navigation }) => {
                 <Text style={styles.price}>${item.price}</Text>
               </View>
             </View>
-            <View style={styles.btnContainer}>{props.children}</View>
+            <View style={styles.btnContainer}>{children}</View>
           </View>
         </CustomTouchable>
       </View>
@@ -73,13 +73,11 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: "center",
-    height: "17%",
     padding: 10,
   },
   title: {
     fontFamily: "open-sans-bold",
     fontSize: 18,
-    marginVertical: 4,
   },
   price: {
     fontFamily: "open-sans",
@@ -91,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    height: "23%",
+    height: "17%",
     marginHorizontal: 20,
   },
 });
