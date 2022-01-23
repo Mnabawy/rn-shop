@@ -1,34 +1,61 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, Platform } from "react-native";
+import {
+  StyleSheet,
+  Button,
+  Text,
+  View,
+  FlatList,
+  Platform,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import * as cartActions from "../../store/actions/cart";
 import ProductItem from "../../components/shop/ProductItem";
 import HeaderButton from "../../components/ui/HeaderButton";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import Colors from "../../constants/Colors";
 
 const ProductOverviewScreen = props => {
   const PRODUCTS = useSelector(state => state.products.availableProducts);
 
   const dispatch = useDispatch();
 
-  const item = ({ item }) => {
-    const navigation = props.navigation;
-    return (
-      <ProductItem
-        item={item}
-        navigation={navigation}
-        onAddToCart={() => {
-          dispatch(cartActions.addToCard(item));
-        }}
-      />
-    );
+  const selectItemHandler = (id, title) => {
+    props.navigation.navigate("ProductDetails", {
+      productId: id,
+      productTitle: title,
+    });
   };
+
+  const navigation = props.navigation;
 
   return (
     <FlatList
       data={PRODUCTS}
-      renderItem={item}
+      renderItem={({ item }) => {
+        return (
+          <ProductItem
+            item={item}
+            navigation={navigation}
+            onSelect={() => {
+              selectItemHandler(item.id, item.title);
+            }}
+          >
+            <Button
+              color={Platform.OS === "android" ? Colors.primary : ""}
+              title="View Details"
+              onPress={() => {
+                selectItemHandler(item.id, item.title);
+              }}
+            />
+            <Button
+              color={Platform.OS === "android" ? Colors.primary : ""}
+              title="To Cart"
+              onPress={() => dispatch(cartActions.addToCard(item))}
+            />
+          </ProductItem>
+        );
+      }}
       keyExtractor={item => item.id}
     />
   );

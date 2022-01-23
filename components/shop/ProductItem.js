@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 
-import * as cartActions from '../../store/actions/cart'
+import * as cartActions from "../../store/actions/cart";
 import Colors from "../../constants/Colors";
 
 const ProductItem = ({ item, navigation }) => {
@@ -21,21 +21,12 @@ const ProductItem = ({ item, navigation }) => {
     CustomTouchable = TouchableNativeFeedback;
   }
 
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.product}>
       <View style={styles.touchable}>
-        <CustomTouchable
-          onPress={() =>
-            navigation.navigate("ProductDetails", {
-              productId: item.id,
-              productTitle: item.title,
-            })
-          }
-          useForeground
-        >
+        <CustomTouchable onPress={props.onSelect} useForeground>
           <View>
             <View>
               <View style={styles.imageContainer}>
@@ -47,23 +38,7 @@ const ProductItem = ({ item, navigation }) => {
                 <Text style={styles.price}>${item.price}</Text>
               </View>
             </View>
-            <View style={styles.btnContainer}>
-              <Button
-                color={Platform.OS === "android" ? Colors.primary : ""}
-                title="View Details"
-                onPress={() =>
-                  navigation.navigate("ProductDetails", {
-                    productId: item.id,
-                    productTitle: item.title,
-                  })
-                }
-              />
-              <Button
-                color={Platform.OS === "android" ? Colors.primary : ""}
-                title="To Cart"
-                onPress={()=> dispatch(cartActions.addToCard(item))}
-              />
-            </View>
+            <View style={styles.btnContainer}>{props.children}</View>
           </View>
         </CustomTouchable>
       </View>
