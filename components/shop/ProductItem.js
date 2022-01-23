@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 
 import * as cartActions from "../../store/actions/cart";
 import Colors from "../../constants/Colors";
+import Card from "../ui/Card";
 
 const ProductItem = ({ item, navigation, onSelect, children }) => {
   let CustomTouchable = TouchableOpacity;
@@ -24,7 +25,7 @@ const ProductItem = ({ item, navigation, onSelect, children }) => {
   const dispatch = useDispatch();
 
   return (
-    <View style={styles.product}>
+    <Card style={styles.product}>
       <View style={styles.touchable}>
         <CustomTouchable onPress={onSelect} useForeground>
           <View>
@@ -42,7 +43,7 @@ const ProductItem = ({ item, navigation, onSelect, children }) => {
           </View>
         </CustomTouchable>
       </View>
-    </View>
+    </Card>
   );
 };
 
@@ -50,13 +51,6 @@ export default ProductItem;
 
 const styles = StyleSheet.create({
   product: {
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: "white",
     height: 300,
     margin: 20,
   },
