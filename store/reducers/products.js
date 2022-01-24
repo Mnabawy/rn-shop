@@ -36,15 +36,14 @@ export default (state = initialState, action) => {
       const updatedPoduct = new Product(
         action.productId,
         state.userProducts[productIndex].ownerId,
-        title,
-        imageUrl,
-        description,
+        action.productData.title,
+        action.productData.imageUrl,
+        action.productData.description,
         state.userProducts[productIndex].price
       );
 
-      const updatedUserProducts = [...state.availableProducts];
+      const updatedUserProducts = [...state.userProducts];
       updatedUserProducts[productIndex] = updatedPoduct;
-
       const availabelProductsIndex = state.availableProducts.findIndex(
         prod => prod.id === action.productId
       );

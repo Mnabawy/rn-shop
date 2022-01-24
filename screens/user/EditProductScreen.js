@@ -6,7 +6,6 @@ import {
   View,
   TextInput,
   Platform,
-  Alert,
 } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,6 +58,7 @@ const EditProductScreen = props => {
             style={styles.input}
             value={title}
             onChangeText={text => setTitle(text)}
+            keyboardType="default"
           />
         </View>
         <View style={styles.formControl}>
@@ -76,6 +76,7 @@ const EditProductScreen = props => {
               style={styles.input}
               value={price}
               onChangeText={price => setPrice(price)}
+              keyboardType="decimal-pad"
             />
           </View>
         )}

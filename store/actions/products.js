@@ -10,6 +10,7 @@ export const deleteProduct = productId => {
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
+  // console.log("createProduct", title, description, imageUrl, price);
   return {
     type: CREATE_PRODUCT,
     productData: {
@@ -22,6 +23,7 @@ export const createProduct = (title, description, imageUrl, price) => {
 };
 
 export const updateProduct = (productId, title, description, imageUrl) => {
+  // console.log("updateProduct", title, description, imageUrl);
   return {
     type: UPDATE_PRODUCT,
     productId,
