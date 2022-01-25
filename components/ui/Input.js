@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
@@ -26,13 +26,13 @@ const FormInput = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ? props.initialValue : "",
     isValid: props.initiallyValid,
-    touched: props.false,
+    touched: false,
   });
 
   const { onInputChange, id } = props;
-
   useEffect(() => {
     if (inputState.touched) {
+      console.log('onInputChange', onInputChange);
       onInputChange(id, inputState.value, inputState.isValid);
     }
   }, [inputState, onInputChange, id]);

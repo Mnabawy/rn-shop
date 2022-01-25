@@ -28,7 +28,7 @@ const formReducer = (state, action) => {
     };
     let updatedFormIsValid = true;
     for (const key in updatedValidities) {
-      formIsValid = formIsValid && updatedValidities[key];
+      updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
     }
     return {
       formIsValid: updatedFormIsValid,
@@ -41,6 +41,10 @@ const formReducer = (state, action) => {
 
 const EditProductScreen = props => {
   const dispatch = useDispatch();
+  const productId = props.navigation.getParam("productId");
+  const editedProduct = useSelector(state =>
+    state.products.userProducts.find(product => product.id === productId)
+  );
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -57,11 +61,6 @@ const EditProductScreen = props => {
     },
     formIsValid: editedProduct ? true : false,
   });
-
-  const productId = props.navigation.getParam("productId");
-  const editedProduct = useSelector(state =>
-    state.products.userProducts.find(product => product.id === productId)
-  );
 
   const submitHandler = useCallback(() => {
     if (!formState.formIsValid) {
@@ -90,7 +89,7 @@ const EditProductScreen = props => {
       );
     }
     props.navigation.goBack();
-  }, [dispatch, productId, title, description, imageUrl, price]);
+  }, [dispatch, productId, formState]);
 
   useEffect(() => {
     props.navigation.setParams({
@@ -98,7 +97,7 @@ const EditProductScreen = props => {
     });
   }, [submitHandler]);
 
-  const textChangeHandler = useCallback(
+  const inpuChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
       dispatchFormState({
         type: FORM_INPUT_UPDATE,
@@ -111,11 +110,7 @@ const EditProductScreen = props => {
   );
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior="padding"
-      keyboardVerticalOffset={100}
-    >
+    <KeyboardAvoidingView>
       <ScrollView>
         <View style={styles.form}>
           <FormInput
@@ -127,7 +122,7 @@ const EditProductScreen = props => {
             errorText="Please enter a valid title!"
             label="Title"
             value={formState.inputValues.title}
-            onInputChange={textChangeHandler}
+            onInputChange={inpuChangeHandler}
             initialValue={editedProduct ? editedProduct.title : ""}
             initiallyValid={!!editedProduct}
             required
@@ -139,7 +134,7 @@ const EditProductScreen = props => {
             errorText="Please enter a valid image url!"
             label="ImageUrl"
             value={formState.inputValues.imageUrl}
-            onInputChange={textChangeHandler}
+            onInputChange={inpuChangeHandler}
             initialValue={editedProduct ? editedProduct.imageUrl : ""}
             initiallyValid={!!editedProduct}
             required
@@ -152,6 +147,7 @@ const EditProductScreen = props => {
               errorText="Please enter a valid price!"
               keyboardType="decimal-pad"
               returnKeyType="next"
+              onInputChange={inpuChangeHandler}
               required
               min={0.1}
             />
@@ -166,7 +162,7 @@ const EditProductScreen = props => {
             label="Description"
             numberOfLines={3}
             value={formState.inputValues.description}
-            onInputChange={textChangeHandler}
+            onInputChange={inpuChangeHandler}
             initialValue={editedProduct ? editedProduct.description : ""}
             initiallyValid={!!editedProduct}
             required
