@@ -4,9 +4,9 @@ import {
   Button,
   View,
   FlatList,
+  Text,
   Platform,
   ActivityIndicator,
-  Text,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -20,10 +20,19 @@ import * as productActions from "../../store/actions/products";
 
 const ProductOverviewScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState();
   const PRODUCTS = useSelector(state => state.products.availableProducts);
 
   const dispatch = useDispatch();
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    dispatch(productActions.fetchProducts()).then(() => {
+      setRefreshing(false);
+    });
+  }, []);
 
   const loadedProducts = useCallback(async () => {
     setError(null);
@@ -91,6 +100,8 @@ const ProductOverviewScreen = props => {
 
   return (
     <FlatList
+      onRefresh={onRefresh}
+      refreshing={refreshing}
       data={PRODUCTS}
       renderItem={({ item }) => {
         return (

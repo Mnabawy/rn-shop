@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, StyleSheet, Platform, Button, Alert } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +11,16 @@ import Colors from "../../constants/Colors";
 const UserProductsScreen = props => {
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    dispatch(productActions.fetchProducts()).then(() => {
+      setRefreshing(false);
+    });
+  });
 
   const editProductHandler = productId => {
     props.navigation.navigate("EditProduct", {
@@ -37,6 +47,8 @@ const UserProductsScreen = props => {
 
   return (
     <FlatList
+      refreshing={refreshing}
+      onRefresh={onRefresh}
       data={userProducts}
       keyExtractor={item => item.id}
       renderItem={({ item }) => (
