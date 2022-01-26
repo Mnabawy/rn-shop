@@ -32,7 +32,6 @@ const FormInput = props => {
   const { onInputChange, id } = props;
   useEffect(() => {
     if (inputState.touched) {
-      console.log('onInputChange', onInputChange);
       onInputChange(id, inputState.value, inputState.isValid);
     }
   }, [inputState, onInputChange, id]);

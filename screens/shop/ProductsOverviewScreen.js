@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Button,
@@ -15,10 +15,16 @@ import ProductItem from "../../components/shop/ProductItem";
 import HeaderButton from "../../components/ui/HeaderButton";
 import Colors from "../../constants/Colors";
 
+import * as productActions from "../../store/actions/products";
+
 const ProductOverviewScreen = props => {
   const PRODUCTS = useSelector(state => state.products.availableProducts);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(productActions.fetchProducts());
+  }, [dispatch]);
 
   const selectItemHandler = (id, title) => {
     props.navigation.navigate("ProductDetails", {

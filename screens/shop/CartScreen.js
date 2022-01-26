@@ -11,7 +11,6 @@ import Card from "../../components/ui/Card";
 
 const CartScreen = () => {
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
-  console.log("cartTotalAmount", cartTotalAmount);
   const cartItems = useSelector(state => {
     const transformedCartItems = [];
     for (const key in state.cart.items) {
