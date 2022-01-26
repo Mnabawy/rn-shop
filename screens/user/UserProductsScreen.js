@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Platform, Button, Alert } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,14 +18,18 @@ const UserProductsScreen = props => {
     });
   };
 
-  const deleteHandler = (id) => {
-    Alert.alert("Delete item","do you want to delete this item?", [
+  const deleteHandler = id => {
+    Alert.alert("Delete item", "do you want to delete this item?", [
       { text: "No", style: "default" },
       {
         text: "Yes",
         style: "destructive",
-        onPress: () => {
-          dispatch(productActions.deleteProduct(id));
+        onPress: async () => {
+          try {
+            await dispatch(productActions.deleteProduct(id));
+          } catch (err) {
+            setError(err.message);
+          }
         },
       },
     ]);
