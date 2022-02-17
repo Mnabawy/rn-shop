@@ -7,26 +7,38 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.mnabawy2.shop",
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.mnabawy2.shop",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "submit": {
+      "production": {
+        "android": {
+          "serviceAccountKeyPath": "/home/mn/Desktop/Full Stack/React Native/sensetive informations",
+          "track": "internal"
+        }
+      }
     }
   }
 }

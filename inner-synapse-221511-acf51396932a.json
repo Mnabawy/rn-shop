@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "inner-synapse-221511",
+  "private_key_id": "acf51396932aaf2b56da8640a7eca1e6fb0461b9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCl/IBK98sjKZwB\nwCIF32pxihbXvaq6naM+l1hafoSEUfRbauswmtQanQuqsvFiYYS9LggsUq4uTzkQ\ndw6Y+aVxyKBHK40R8qgfznG+ZHIPB+e95/VUp+RA2UHePLCevCUAqjpi2EUN2NUg\nf7db826ZQmvFfbQVTyZEMZJiyRdmr7MN5wMTlGvKHeGI2IIO4B012m2eERYnIrVL\nlVosxcd2hzJJqVcu4NSvdGM0Agh1Ff3aQFqyZoKs2vsDrbbs6/qA9NwaL9cQLGmj\n3dFqG/A73axcOMHnwe6TmJZ20pipisT1CWYFaXB3yYH22nkZ/h8c4FdvXKDQaJyH\n0E+jagMnAgMBAAECggEARZLW+5Vt0ilIuPsdx7Rj2390H63ieCJHIJ8za4sIZKYt\ndHwWZOMg8J7PGxeyUfhqORmoV1u4orSWSK5+seRCUrUzaWF52gIKMnrH9nQH0wEP\nQ+yMSpWs+PmXwF1T8tUN9X9kxbW9DBbNDrg51RLuUtMidT9BUoVAlujoYPvFEUb6\ntFM6JHlZ8LGOBoV8giq1m4tdFs+sjmw06mGf6vO/nEhlQOWt9j1kWwjVtHpY7Amu\nT1vHUj46/wSK0AANz3gfmcJYRoJyjEUum8OcZ/lecw5YohNa3qLkj7BuA94Vs7Ih\nvv5S1Ao8khi8hGr6FjYOhVgZhW5nVxOSx+VeS5w3gQKBgQDfxVX9CZd4N6YkHhdo\nJJWcXvzik9Q9xCr4y1rKw+zC9qa+PHGvpI3VMrjaZ64dmrfr+DBlCZLdiMcFQETu\nfG5anUUaH+MU1Xn/R7pHmTRhn6sEbkxJr9CMOGDh/8tpopASU/P1N14s6MkqLvby\n6bkRw+wcOq/19aE2Xe5JGspChwKBgQC95JcTpd3gj3i9XEIR9bSAq1EYlEk6JQsg\nZdmn4GX076Icn/ysl5UMHsPEBOUsRUW5htz+3eBKAW7q5FqoH+rDAWWYQbwKF7vN\nFE3PFKOUFf4/U3wusI4RKVmviqdK5NXHsuuPwpJGjmlPLX31TODmjDRD4IW0qc6Y\nSZqxs2BCYQKBgQCru06au1m7sTmYTl+4VRtcvqllWf5wyLQR7D7pjiOOHK0rIkg9\nfBQ9ooerVhaSMcMlHXxGjmpgCjBzHzfHr0ch08DMo9wqiQrvl6SmfjVtFpSw+dUi\nWAO9GSeBSkZZ86CN8FAxySRFYwG/lft/wU9/CtWRdJjGMpRenQfaouzG0QKBgQCi\nIFLkkY74NUZu1iAK2W79FEeu5pwGqq3vQUYt0Kb8EsSkD+xZJyo4KOQXrd5Eh/hZ\nyE1SxPjD9qlOnxzPwkBbsgudjTIQo+bR123/Sa3Ht2dVhd/WtSL2gAl0mLrwdKQZ\nVidMnGDrIJfE5CBQmQzDihztfvppHzmmR+FtqqqawQKBgQDdlYIzthInWdatxjN4\nVDr95DTMhWiGw5DAb1MlYwgwf+kmFkYdck15Axb2G7VUm54ecq/9lpM3cV8+gfhM\ntSJ45p0gj63tO72glQPILbq56iU5WvwJQBbey6+g3r1ckTWqLbd9SPOf9eVUjz7C\nfbcPn4E3AqZtGDTMt+4TWRAZPw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "rn-shop@inner-synapse-221511.iam.gserviceaccount.com",
+  "client_id": "104926395149773332691",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rn-shop%40inner-synapse-221511.iam.gserviceaccount.com"
+}
