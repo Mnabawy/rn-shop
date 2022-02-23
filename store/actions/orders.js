@@ -4,11 +4,11 @@ export const ADD_ORDER = "ADD_ORDER";
 export const SET_ORDERS = "SET_ORDERS";
 
 export const fetchOrders = () => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/orders/${userId}.json`;
     try {
-      const response = await fetch(
-        "https://rn-shop-41c20-default-rtdb.firebaseio.com/orders/u1.json"
-      );
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw Error("Something went wrong!");
@@ -39,23 +39,23 @@ export const fetchOrders = () => {
 };
 
 export const addOrder = (cartItems, totalAmount) => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    const token = getState().auth.token;
     const date = new Date();
     // any async code you want
-    const response = await fetch(
-      "https://rn-shop-41c20-default-rtdb.firebaseio.com/orders/u1.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cartItems,
-          totalAmount,
-          date: date.toString(),
-        }),
-      }
-    );
+    const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cartItems,
+        totalAmount,
+        date: date.toString(),
+      }),
+    });
 
     if (!response.ok) {
       throw new Error("Somthing went wrong");

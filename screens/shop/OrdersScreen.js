@@ -5,6 +5,7 @@ import {
   FlatList,
   ActivityIndicator,
   View,
+  Text
 } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,6 +38,14 @@ const OrdersScreen = () => {
     return (
       <View style={styles.centerd}>
         <ActivityIndicator color={Colors.primary} size="large" />
+      </View>
+    );
+  }
+
+  if (orders.length === 0) {
+    return (
+      <View style={styles.centerd}>
+        <Text>No Order  Found</Text>
       </View>
     );
   }
