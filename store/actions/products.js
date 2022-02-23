@@ -44,13 +44,12 @@ export const fetchProducts = () => {
 };
 
 export const deleteProduct = productId => {
-  return async dispatch => {
-    const response = await fetch(
-      `https://rn-shop-41c20-default-rtdb.firebaseio.com/products/${productId}.jsn`,
-      {
-        method: "DELETE",
-      }
-    );
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/products/${productId}.json?auth=${toekn}`;
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
 
     if (!response.ok) {
       throw new Error("somthing went wrong");
@@ -64,23 +63,22 @@ export const deleteProduct = productId => {
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
-  return async dispatch => {
-    // any async code you want
-    const response = await fetch(
-      "https://rn-shop-41c20-default-rtdb.firebaseio.com/products.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          imageUrl,
-          price,
-        }),
-      }
-    );
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/products.json?auth=${token}`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        imageUrl,
+        price,
+      }),
+    });
 
     const resData = await response.json();
 
@@ -98,21 +96,20 @@ export const createProduct = (title, description, imageUrl, price) => {
 };
 
 export const updateProduct = (productId, title, description, imageUrl) => {
-  return async dispatch => {
-    const response = await fetch(
-      `https://rn-shop-41c20-default-rtdb.firebaseio.com/products/${productId}.json`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          imageUrl,
-        }),
-      }
-    );
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`;
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        imageUrl,
+      }),
+    });
 
     if (!response.ok) {
       throw new Error("somthing went wrong");

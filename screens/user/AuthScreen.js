@@ -41,7 +41,7 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const AuthScreen = () => {
+const AuthScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSignedUp, SetIsSignedUp] = useState(false);
   const [error, setError] = useState();
@@ -95,10 +95,11 @@ const AuthScreen = () => {
     setIsLoading(true);
     try {
       await dispatch(action);
+      props.navigation.navigate("Shop");
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
