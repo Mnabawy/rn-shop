@@ -5,7 +5,7 @@ import {
   FlatList,
   ActivityIndicator,
   View,
-  Text
+  Text,
 } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +45,7 @@ const OrdersScreen = () => {
   if (orders.length === 0) {
     return (
       <View style={styles.centerd}>
-        <Text>No Order  Found</Text>
+        <Text>No Order Found</Text>
       </View>
     );
   }
@@ -73,10 +73,10 @@ OrdersScreen.navigationOptions = navData => {
     headerLeft: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title="Cart"
-          iconName={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+          title="Menu"
+          iconName={Platform.OS === "android" ? "md-menu" : "ios-menu"}
           onPress={() => {
-            navData.navigation.navigate("Cart");
+            navData.navigation.toggleDrawer();
           }}
         ></Item>
       </HeaderButtons>
