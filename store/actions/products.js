@@ -48,7 +48,9 @@ export const fetchProducts = () => {
 export const deleteProduct = productId => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/products/${productId}.json?auth=${toekn}`;
+
+    const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`;
+
     const response = await fetch(url, {
       method: "DELETE",
     });
@@ -104,6 +106,7 @@ export const updateProduct = (productId, title, description, imageUrl) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const url = `https://rn-shop-41c20-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`;
+    
     const response = await fetch(url, {
       method: "PATCH",
       headers: {

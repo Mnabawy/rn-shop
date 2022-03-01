@@ -2,7 +2,6 @@ import React, { useState, useCallback, useReducer, useEffect } from "react";
 import {
   StyleSheet,
   ScrollView,
-  Button,
   View,
   ActivityIndicator,
   Alert,
@@ -14,6 +13,7 @@ import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Colors from "../../constants/Colors";
 import * as authActions from "../../store/actions/auth";
+import Button from "../../components/ui/Button";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE ";
 
@@ -122,6 +122,7 @@ const AuthScreen = props => {
             id="password"
             label="Password"
             keyboardType="default"
+            password
             required
             minLength={5}
             autoCapitalize="none"
@@ -133,7 +134,7 @@ const AuthScreen = props => {
           <View style={styles.btnContainer}>
             <Button
               title={isSignedUp ? "Sign Up" : "Login"}
-              color={Colors.primary}
+              style={styles.primaryBg}
               onPress={authHandler}
             />
           </View>
@@ -142,8 +143,8 @@ const AuthScreen = props => {
               <ActivityIndicator size="small" color={Colors.primary} />
             ) : (
               <Button
+                style={styles.accintBg}
                 title={`swtich To ${isSignedUp ? "Login" : "Sign Up"}`}
-                color={Colors.accint}
                 onPress={() => {
                   SetIsSignedUp(prevState => !prevState);
                 }}
@@ -182,5 +183,11 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     marginTop: 10,
+  },
+  primaryBg: {
+    backgroundColor: Colors.primary,
+  },
+  accintBg: {
+    backgroundColor: Colors.accint,
   },
 });

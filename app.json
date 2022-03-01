@@ -14,6 +14,7 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+<<<<<<< HEAD
     "ios": {
       "bundleIdentifier": "com.mnabawy.shop_app",
       "supportsTablet": true,
@@ -21,6 +22,10 @@
     },
     "android": {
       "package": "com.mnabawy.shop_app",
+=======
+    "android": {
+      "package": "com.mnabawy2.app_shop",
+>>>>>>> new-commit-changes
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -31,14 +36,6 @@
         "CAMERA",
         "WRITE_EXTERNAL_STORAGE"
       ]
-    },
-    "submit": {
-      "production": {
-        "android": {
-          "serviceAccountKeyPath": "/home/mn/Desktop/Full Stack/React Native/sensetive informations",
-          "track": "internal"
-        }
-      }
     }
   }
 }

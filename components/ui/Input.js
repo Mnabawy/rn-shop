@@ -71,6 +71,8 @@ const FormInput = props => {
         value={inputState.value}
         onChangeText={textChangeHandler}
         onBlur={lostFocusHandler}
+        type={props.type}
+        secureTextEntry={true}
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>
@@ -90,12 +92,14 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: "open-sans-bold",
     marginVertical: 8,
+    fontSize:18
   },
   input: {
     paddingHorizontal: 2,
     paddingVertical: 5,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    fontSize:18
   },
   errorContainer: {
     marginVertical: 5,
