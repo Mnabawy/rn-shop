@@ -1,4 +1,5 @@
 export default {
   primary: "#154c79",
-  accint: "#eab676",
+  accint: "#9B601C",
+  error: "#D60000",
 };

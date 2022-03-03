@@ -1,5 +1,6 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import Colors from "../../constants/Colors";
 
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
@@ -22,12 +23,21 @@ const inputReducer = (state, action) => {
   }
 };
 
+// for accissablity
+const editableTextInputColor = "#494949";
+const disabledTextInputColor = "#BBB";
+const focusedInputColor = "#0D12B9";
+const minimumTouchableSize = 48;
+
 const FormInput = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ? props.initialValue : "",
     isValid: props.initiallyValid,
     touched: false,
   });
+  // for accissablity
+  const [editable, setEditable] = useState(true);
+  const accessibilityState = { disabled: !editable };
 
   const { onInputChange, id } = props;
   useEffect(() => {
@@ -63,10 +73,16 @@ const FormInput = props => {
   };
 
   return (
-    <View style={styles.formControl}>
+    <View
+      style={styles.formControl}
+      accessible
+      accessibilityLabel={props.label}
+      accessibilityState={accessibilityState}
+    >
       <Text style={styles.label}>{props.label}</Text>
       <TextInput
         {...props}
+        editable={editable}
         style={styles.input}
         value={inputState.value}
         onChangeText={textChangeHandler}
@@ -92,21 +108,21 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: "open-sans-bold",
     marginVertical: 8,
-    fontSize:18
+    fontSize: 18,
   },
   input: {
     paddingHorizontal: 2,
-    paddingVertical: 5,
+    paddingVertical: 7,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
-    fontSize:18
+    fontSize: 24,
   },
   errorContainer: {
     marginVertical: 5,
   },
   errorText: {
     fontFamily: "open-sans",
-    color: "red",
+    color: Colors.error,
     fontSize: 13,
   },
 });

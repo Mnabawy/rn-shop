@@ -26,6 +26,21 @@
         "CAMERA",
         "WRITE_EXTERNAL_STORAGE"
       ]
-    }
-  }
+    },
+    "plugins": ["sentry-expo"]
+  },
+
+  "hooks": {
+    "postPublish": [
+      {
+        "file": "sentry-expo/upload-sourcemaps",
+        "config": {
+          "organization": "your sentry organization's short name here",
+          "project": "shop",
+          "authToken": "your auth token here"
+        }
+      }
+    ]
+  },
+  "plugins": ["sentry-expo"]
 }
