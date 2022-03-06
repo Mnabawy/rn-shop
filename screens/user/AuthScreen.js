@@ -111,7 +111,7 @@ const AuthScreen = props => {
             label="E-Mail"
             keyboardType="email-address"
             required
-            email
+            textContentType="emailAddress"
             autoCapitalize="none"
             errorText="Please enter a valid email address"
             value={formState.inputValues.email}
@@ -122,7 +122,8 @@ const AuthScreen = props => {
             id="password"
             label="Password"
             keyboardType="default"
-            password
+            textContentType="password"
+            secureTextEntry={true}
             required
             minLength={5}
             autoCapitalize="none"

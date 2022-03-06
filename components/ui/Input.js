@@ -88,7 +88,6 @@ const FormInput = props => {
         onChangeText={textChangeHandler}
         onBlur={lostFocusHandler}
         type={props.type}
-        secureTextEntry={true}
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>
