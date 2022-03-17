@@ -12,3 +12,4 @@ web-build/
 shop.jks
 # macOS
 .DS_Store
+unwanted.js

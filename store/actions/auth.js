@@ -1,4 +1,5 @@
 import { AsyncStorage } from "react-native";
+import axios from "axios";
 
 // export const SIGNUP = "SIGNUP";
 // export const LOGIN = "LOGIN";
@@ -24,8 +25,8 @@ export const signup = (email, password) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
-          password,
+          email: email,
+          password: password,
           returnSecureToken: true,
         }),
       }
@@ -34,16 +35,15 @@ export const signup = (email, password) => {
     if (!response.ok) {
       const errorResData = await response.json();
       const errorId = errorResData.error.message;
-
-      let message = "Something went Wrong";
+      let message = "Something went wrong!";
       if (errorId === "EMAIL_EXISTS") {
-        message = "This Email Exists already ";
+        message = "This email exists already!";
       }
-      throw Error(message);
+      throw new Error(message);
     }
 
     const resData = await response.json();
-
+    console.log("resData", resData);
     dispatch(
       authenticate(
         resData.localId,
@@ -68,8 +68,8 @@ export const login = (email, password) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
-          password,
+          email: email,
+          password: password,
           returnSecureToken: true,
         }),
       }
@@ -78,18 +78,17 @@ export const login = (email, password) => {
     if (!response.ok) {
       const errorResData = await response.json();
       const errorId = errorResData.error.message;
-      // console.log(errorResData.error.message);
-
-      let message;
+      let message = "Something went wrong!";
       if (errorId === "EMAIL_NOT_FOUND") {
-        message = "This Email Could not be Found";
+        message = "This email could not be found!";
       } else if (errorId === "INVALID_PASSWORD") {
-        message = "This Password is not Valid";
+        message = "This password is not valid!";
       }
-      throw Error(message);
+      throw new Error(message);
     }
 
     const resData = await response.json();
+    console.log(resData);
     dispatch(
       authenticate(
         resData.localId,
