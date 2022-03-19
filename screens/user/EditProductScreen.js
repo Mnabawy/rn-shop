@@ -47,7 +47,7 @@ const EditProductScreen = props => {
   const [error, setError] = useState();
 
   const dispatch = useDispatch();
-  const productId = props.navigation.getParam("productId");
+  const productId = props.route.params ? props.route.params.productId : null;
   const editedProduct = useSelector(state =>
     state.products.userProducts.find(product => product.id === productId)
   );
@@ -112,8 +112,18 @@ const EditProductScreen = props => {
   }, [dispatch, productId, formState]);
 
   useEffect(() => {
-    props.navigation.setParams({
-      submit: submitHandler,
+    props.navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Save"
+            iconName={
+              Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
+            }
+            onPress={submitHandler}
+          ></Item>
+        </HeaderButtons>
+      ),
     });
   }, [submitHandler]);
 
@@ -203,22 +213,10 @@ const EditProductScreen = props => {
 };
 
 export const screenOptions = navData => {
-  const submitHandler = navData.navigation.getParam("submit");
+  const routeParams = navData.route.params ? navData.route.params : {};
+
   return {
-    headerTitle: navData.navigation.getParam("productId")
-      ? "Edit Product"
-      : "Add Product",
-    headerRight: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Save"
-          iconName={
-            Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
-          }
-          onPress={submitHandler}
-        ></Item>
-      </HeaderButtons>
-    ),
+    headerTitle: routeParams.productId ? "Edit Product" : "Add Product",
   };
 };
 

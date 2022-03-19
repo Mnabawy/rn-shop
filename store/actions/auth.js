@@ -74,7 +74,7 @@ export const login = (email, password) => {
         body: JSON.stringify({
           email: email,
           password: password,
-          returnSecureToken: true
+          returnSecureToken: true,
         }),
       }
     );
@@ -104,6 +104,7 @@ export const login = (email, password) => {
     const expirationDate = new Date(
       new Date().getTime() + parseInt(resData.expiresIn) * 1000
     );
+    console.log("logged in");
     saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
 };

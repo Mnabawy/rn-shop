@@ -70,7 +70,7 @@ const OrdersScreen = () => {
 export const screenOptions = navData => {
   return {
     headerTitlel: "Your Orders",
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
