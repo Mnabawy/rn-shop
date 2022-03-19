@@ -202,7 +202,7 @@ const EditProductScreen = props => {
   );
 };
 
-EditProductScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   const submitHandler = navData.navigation.getParam("submit");
   return {
     headerTitle: navData.navigation.getParam("productId")

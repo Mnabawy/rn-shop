@@ -43,8 +43,8 @@ const formReducer = (state, action) => {
 
 const AuthScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isSignedUp, SetIsSignedUp] = useState(false);
   const [error, setError] = useState();
+  const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -59,18 +59,6 @@ const AuthScreen = props => {
     formIsValid: false,
   });
 
-  const inputChangeHandler = useCallback(
-    (inputIdentifier, inputValue, inputValidity) => {
-      dispatchFormState({
-        type: FORM_INPUT_UPDATE,
-        value: inputValue,
-        isValid: inputValidity,
-        input: inputIdentifier,
-      });
-    },
-    [dispatchFormState]
-  );
-
   useEffect(() => {
     if (error) {
       Alert.alert("An Error Occurred!", error, [{ text: "Okay" }]);
@@ -79,7 +67,7 @@ const AuthScreen = props => {
 
   const authHandler = async () => {
     let action;
-    if (isSignedUp) {
+    if (isSignup) {
       action = authActions.signup(
         formState.inputValues.email,
         formState.inputValues.password
@@ -91,16 +79,28 @@ const AuthScreen = props => {
       );
     }
     setError(null);
-
     setIsLoading(true);
     try {
       await dispatch(action);
-      props.navigation.navigate("Shop");
+
+      // props.navigation.navigate("Shop");
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
     }
   };
+
+  const inputChangeHandler = useCallback(
+    (inputIdentifier, inputValue, inputValidity) => {
+      dispatchFormState({
+        type: FORM_INPUT_UPDATE,
+        value: inputValue,
+        isValid: inputValidity,
+        input: inputIdentifier,
+      });
+    },
+    [dispatchFormState]
+  );
 
   return (
     <LinearGradient colors={["#ffedff", "#ffe3ff"]} style={styles.gradient}>
@@ -134,7 +134,7 @@ const AuthScreen = props => {
           />
           <View style={styles.btnContainer}>
             <Button
-              title={isSignedUp ? "Sign Up" : "Login"}
+              title={isSignup ? "Sign Up" : "Login"}
               style={styles.primaryBg}
               onPress={authHandler}
             />
@@ -145,9 +145,9 @@ const AuthScreen = props => {
             ) : (
               <Button
                 style={styles.accintBg}
-                title={`swtich To ${isSignedUp ? "Login" : "Sign Up"}`}
+                title={`swtich To ${isSignup ? "Login" : "Sign Up"}`}
                 onPress={() => {
-                  SetIsSignedUp(prevState => !prevState);
+                  setIsSignup(prevState => !prevState);
                 }}
               />
             )}
@@ -158,7 +158,7 @@ const AuthScreen = props => {
   );
 };
 
-AuthScreen.navigationOptions = {
+export const screenOptions = {
   headerTitle: "Authenticate",
 };
 

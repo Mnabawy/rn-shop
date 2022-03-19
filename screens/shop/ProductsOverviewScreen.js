@@ -23,45 +23,36 @@ const ProductOverviewScreen = props => {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState();
   const PRODUCTS = useSelector(state => state.products.availableProducts);
-
   const dispatch = useDispatch();
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-
-    dispatch(productActions.fetchProducts()).then(() => {
-      setRefreshing(false);
-    });
-  }, []);
 
   const loadedProducts = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setRefreshing(true);
     try {
       await dispatch(productActions.fetchProducts());
     } catch (err) {
       setError(err.message);
     }
-    setIsLoading(false);
+    setRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    const willFocusSub = props.navigation.addListener(
-      "willFocus",
-      loadedProducts
-    );
+    const unsubscribe = props.navigation.addListener("focus", loadedProducts);
 
     return () => {
-      willFocusSub.remove();
+      unsubscribe();
     };
   }, [loadedProducts]);
 
   useEffect(() => {
-    loadedProducts();
+    setIsLoading(true);
+    loadedProducts().then(() => {
+      setIsLoading(false);
+    });
   }, [dispatch, loadedProducts]);
 
   const selectItemHandler = (id, title) => {
-    props.navigation.navigate("ProductDetails", {
+    props.navigation.navigate("ProductDetail", {
       productId: id,
       productTitle: title,
     });
@@ -93,14 +84,14 @@ const ProductOverviewScreen = props => {
   if (!isLoading && PRODUCTS.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text>{error}</Text>
+        <Text>No products found. Maybe start adding some!</Text>
       </View>
     );
   }
 
   return (
     <FlatList
-      onRefresh={onRefresh}
+      onRefresh={loadedProducts}
       refreshing={refreshing}
       data={PRODUCTS}
       renderItem={({ item }) => {
@@ -132,10 +123,10 @@ const ProductOverviewScreen = props => {
   );
 };
 
-ProductOverviewScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
     headerTitle: "All Products",
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
@@ -143,10 +134,10 @@ ProductOverviewScreen.navigationOptions = navData => {
           onPress={() => {
             navData.navigation.toggleDrawer();
           }}
-        ></Item>
+        />
       </HeaderButtons>
     ),
-    headerRight: (
+    headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Cart"
@@ -154,13 +145,11 @@ ProductOverviewScreen.navigationOptions = navData => {
           onPress={() => {
             navData.navigation.navigate("Cart");
           }}
-        ></Item>
+        />
       </HeaderButtons>
     ),
   };
 };
-
-export default ProductOverviewScreen;
 
 const styles = StyleSheet.create({
   centered: {
@@ -169,3 +158,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+export default ProductOverviewScreen

@@ -5,16 +5,13 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import ReduxThunk from "redux-thunk";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
 
 import productsReducer from "./store/reducers/products";
 import authReducer from "./store/reducers/auth";
 import cartReducer from "./store/reducers/cart";
 import ordersReducer from "./store/reducers/orders";
-import ShopNavigator from "./navigation/Navigator";
-import NavigationContainer from "./navigation/NavigationContainer";
-
-import app from "./firebase";
+import ShopNavigator from "./navigation/ShopNavigator";
+import AppNavigator from './navigation/AppNavigator';
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -47,20 +44,9 @@ export default function App() {
     );
   }
 
-  const db = getFirestore(app);
-
-  async function getClients(db) {
-    const usersCol = collection(db, "users");
-    const usersSnapshot = await getDocs(usersCol);
-    const usersList = usersSnapshot.docs.map(doc => doc.data());
-    console.log(usersList);
-  }
-
-  getClients(db);
-
   return (
     <Provider store={store}>
-      <NavigationContainer />
+      <AppNavigator />
     </Provider>
   );
 }

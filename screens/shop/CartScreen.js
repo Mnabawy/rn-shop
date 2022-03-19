@@ -85,7 +85,7 @@ const CartScreen = () => {
   );
 };
 
-CartScreen.navigationOptions = {
+export const screenOptions = {
   headerTitlel: "Your Cart",
 };
 
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
   sreen: {
     margin: 20,
   },
-
   summary: {
     flexDirection: "row",
     alignItems: "center",
